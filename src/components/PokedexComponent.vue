@@ -1,23 +1,37 @@
 <script>
+import PokemonDetailsVue from "./partials/PokemonDetails.vue";
+import PokemonSearchVue from "./partials/PokemonSearch.vue";
+
 export default {
   name: "PokedexComponent",
+  components: {
+    PokemonDetailsVue,
+    PokemonSearchVue,
+  },
 };
 </script>
 
 <template>
-  <div class="container">pokedex</div>
+  <div class="container mt-3">
+    <div class="row">
+      <div class="col-6">
+        <div class="ac_container w-100 h-100 px-5">
+          <PokemonSearchVue />
+          <PokemonDetailsVue />
+        </div>
+      </div>
+      <div class="col-6">My pokemon</div>
+    </div>
+  </div>
 </template>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-header {
-  border-bottom: 3px solid black;
-  .logo {
-    text-align: center;
-    img {
-      width: 200px;
-      height: 70px;
-    }
+.container {
+  height: calc(100vh - 120px);
+  border: 5px solid red;
+  .row {
+    height: 100%;
+    background-color: rgb(169, 0, 15);
   }
 }
 </style>

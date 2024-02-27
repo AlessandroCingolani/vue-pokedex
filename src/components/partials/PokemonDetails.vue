@@ -1,6 +1,10 @@
 <script>
 export default {
   name: "PokemonDetails",
+  props: {
+    found: Boolean,
+    details: Object,
+  },
 };
 </script>
 
@@ -10,53 +14,34 @@ export default {
       <div
         class="pokemon-image d-flex justify-content-center align-items-center"
       >
-        <img src="/img/pokeball.png" alt="" />
+        <img :src="details.sprites.front_shiny" alt="" />
       </div>
     </div>
 
     <div class="details-pokemon p-2">
-      <strong>No valid pokemon selected!</strong>
-      <div class="found-pokemon">
-        <div><strong>Name:</strong><span> Pikachu</span></div>
-        <div><strong>Type:</strong><span> Eletric</span></div>
-        <div><strong>Height:</strong><span> 4"</span></div>
-        <div><strong>Weight:</strong><span> 60lbs.</span></div>
-        <div class="stats mt-3">
+      <strong v-if="found">No valid pokemon selected!</strong>
+      <div v-else class="found-pokemon mt-3">
+        <div>
+          <strong>Name:</strong
+          ><span class="text-uppercase"> {{ details.name }}</span>
+        </div>
+        <div><strong>Type:</strong><span></span></div>
+        <div>
+          <strong>Height:</strong><span> {{ details.height }}"</span>
+        </div>
+        <div>
+          <strong>Weight:</strong><span> {{ details.weight }} lbs.</span>
+        </div>
+        <div class="stats mt-5">
           <h5>Stats</h5>
-          <div class="d-flex justify-content-between align-items-center">
-            <span>hp</span>
+          <div
+            v-for="value in details.stats"
+            :key="value.id"
+            class="d-flex justify-content-between align-items-center"
+          >
+            <span>{{ value.stat.name }}</span>
             <div class="bar">
-              <div style="width: 50px" class="fill"></div>
-            </div>
-          </div>
-          <div class="d-flex justify-content-between align-items-center">
-            <span>attack</span>
-            <div class="bar">
-              <div style="width: 40px" class="fill"></div>
-            </div>
-          </div>
-          <div class="d-flex justify-content-between align-items-center">
-            <span>defense</span>
-            <div class="bar">
-              <div style="width: 20px" class="fill"></div>
-            </div>
-          </div>
-          <div class="d-flex justify-content-between align-items-center">
-            <span>special attack</span>
-            <div class="bar">
-              <div style="width: 20px" class="fill"></div>
-            </div>
-          </div>
-          <div class="d-flex justify-content-between align-items-center">
-            <span>special defense</span>
-            <div class="bar">
-              <div style="width: 20px" class="fill"></div>
-            </div>
-          </div>
-          <div class="d-flex justify-content-between align-items-center">
-            <span>speed</span>
-            <div class="bar">
-              <div style="width: 20px" class="fill"></div>
+              <div :style="`width: ${value.base_stat}px`" class="fill"></div>
             </div>
           </div>
         </div>

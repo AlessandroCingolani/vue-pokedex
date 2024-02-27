@@ -1,6 +1,11 @@
 <script>
 export default {
   name: "PokemonSearch",
+  data() {
+    return {
+      toSearch: "",
+    };
+  },
 };
 </script>
 
@@ -9,8 +14,14 @@ export default {
     class="search-pokemon d-flex py-4 justify-content-between align-items-center"
   >
     <div class="h-100">
-      <input type="text" placeholder="Search Pokémon" />
-      <button class="btn btn-success ms-3" type="button">Button</button>
+      <input v-model="toSearch" type="text" placeholder="Search Pokémon" />
+      <button
+        @click="$emit('callApi', this.toSearch)"
+        class="btn btn-success ms-3"
+        type="button"
+      >
+        Button
+      </button>
     </div>
     <button class="btn btn-success">Catch</button>
   </div>

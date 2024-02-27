@@ -1,9 +1,20 @@
 <script>
+import LoaderComponent from "./LoaderComponent.vue";
+import { store } from "../../data/store";
 export default {
   name: "PokemonDetails",
-  props: {
-    found: Boolean,
-    details: Object,
+  components: {
+    LoaderComponent,
+  },
+  data() {
+    return {
+      store,
+    };
+  },
+  computed: {
+    pokemonList() {
+      return store.searchedPokemon;
+    },
   },
 };
 </script>
@@ -14,28 +25,46 @@ export default {
       <div
         class="pokemon-image d-flex justify-content-center align-items-center"
       >
-        <img :src="details.sprites.front_shiny" alt="" />
+        <div
+          v-if="!store.isLoad"
+          class="loader-container d-flex justify-content-center align-items-center"
+        >
+          <LoaderComponent />
+        </div>
+        <div v-else class="loaded d-flex justify-content-center">
+          <img v-if="!store.found" src="/img/pokeball.png" alt="" />
+          <img v-else :src="store.searchedPokemon.sprites.front_shiny" alt="" />
+        </div>
       </div>
     </div>
 
     <div class="details-pokemon p-2">
-      <strong v-if="found">No valid pokemon selected!</strong>
-      <div v-else class="found-pokemon mt-3">
-        <div>
-          <strong>Name:</strong
-          ><span class="text-uppercase"> {{ details.name }}</span>
+      <strong v-if="!store.found">No valid pokemon selected!</strong>
+      <div
+        v-else
+        class="found-pokemon h-100 d-flex flex-column justify-content-evenly"
+      >
+        <div class="main-details">
+          <div>
+            <strong>Name:</strong
+            ><span class="text-uppercase">
+              {{ store.searchedPokemon.name }}</span
+            >
+          </div>
+          <div><strong>Type:</strong><span></span></div>
+          <div>
+            <strong>Height:</strong
+            ><span> {{ store.searchedPokemon.height }}"</span>
+          </div>
+          <div>
+            <strong>Weight:</strong
+            ><span> {{ store.searchedPokemon.weight }} lbs.</span>
+          </div>
         </div>
-        <div><strong>Type:</strong><span></span></div>
-        <div>
-          <strong>Height:</strong><span> {{ details.height }}"</span>
-        </div>
-        <div>
-          <strong>Weight:</strong><span> {{ details.weight }} lbs.</span>
-        </div>
-        <div class="stats mt-5">
-          <h5>Stats</h5>
+        <div class="stats pt-2">
+          <strong>Stats</strong>
           <div
-            v-for="value in details.stats"
+            v-for="value in store.searchedPokemon.stats"
             :key="value.id"
             class="d-flex justify-content-between align-items-center"
           >
@@ -60,12 +89,20 @@ export default {
     background-color: white;
     margin-bottom: 15px;
     .pokemon-image {
+      .loaded {
+        width: 100%;
+        height: 100%;
+        img {
+          max-width: 100%;
+          max-height: 100%;
+        }
+      }
       width: 100%;
       height: 100%;
       border: 2px solid black;
-      img {
-        max-width: 100%;
-        max-height: 100%;
+      .loader-container {
+        width: 60%;
+        height: 60%;
       }
     }
   }

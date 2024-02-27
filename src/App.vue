@@ -13,4 +13,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+@use "../scss/main.scss";
+</style>

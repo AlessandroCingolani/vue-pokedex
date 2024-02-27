@@ -13,7 +13,55 @@ export default {
         <img src="/img/pokeball.png" alt="" />
       </div>
     </div>
-    <div class="details-pokemon"></div>
+
+    <div class="details-pokemon p-2">
+      <strong>No valid pokemon selected!</strong>
+      <div class="found-pokemon">
+        <div><strong>Name:</strong><span> Pikachu</span></div>
+        <div><strong>Type:</strong><span> Eletric</span></div>
+        <div><strong>Height:</strong><span> 4"</span></div>
+        <div><strong>Weight:</strong><span> 60lbs.</span></div>
+        <div class="stats mt-3">
+          <h5>Stats</h5>
+          <div class="d-flex justify-content-between align-items-center">
+            <span>hp</span>
+            <div class="bar">
+              <div style="width: 50px" class="fill"></div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <span>attack</span>
+            <div class="bar">
+              <div style="width: 40px" class="fill"></div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <span>defense</span>
+            <div class="bar">
+              <div style="width: 20px" class="fill"></div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <span>special attack</span>
+            <div class="bar">
+              <div style="width: 20px" class="fill"></div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <span>special defense</span>
+            <div class="bar">
+              <div style="width: 20px" class="fill"></div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <span>speed</span>
+            <div class="bar">
+              <div style="width: 20px" class="fill"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -42,6 +90,21 @@ export default {
     border: 2px solid black;
     border-radius: 10px;
     background-color: rgb(44, 212, 13);
+    .stats {
+      .bar {
+        width: 255px;
+        height: 8px;
+        border: 1px solid gray;
+        border-radius: 5px;
+        position: relative;
+        .fill {
+          position: absolute;
+          height: 100%;
+          background-color: black;
+          overflow: hidden;
+        }
+      }
+    }
   }
 }
 </style>

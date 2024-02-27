@@ -2,6 +2,8 @@
 import MyPokemonVue from "./partials/MyPokemon.vue";
 import PokemonDetailsVue from "./partials/PokemonDetails.vue";
 import PokemonSearchVue from "./partials/PokemonSearch.vue";
+import { store } from "../data/store";
+import axios from "axios";
 
 export default {
   name: "PokedexComponent",
@@ -9,6 +11,30 @@ export default {
     PokemonDetailsVue,
     PokemonSearchVue,
     MyPokemonVue,
+  },
+  data() {
+    return {
+      store,
+    };
+  },
+  methods: {
+    getPokemon() {
+      store.searchedPokemon = [];
+      axios
+        .get(store.apiUrl)
+        .then((response) => {
+          store.notFound = false;
+          console.log(response);
+          store.searchedPokemon = response.data;
+        })
+        .catch((error) => {
+          store.notFound = true;
+          console.log(error + "no trovato");
+        });
+    },
+  },
+  mounted() {
+    this.getPokemon();
   },
 };
 </script>
@@ -19,7 +45,10 @@ export default {
       <div class="col-6">
         <div class="ac_container w-100 h-100 px-5">
           <PokemonSearchVue />
-          <PokemonDetailsVue />
+          <PokemonDetailsVue
+            :details="store.searchedPokemon"
+            :found="store.notFound"
+          />
         </div>
       </div>
       <div class="col-6 d-flex justify-content-center align-items-center">

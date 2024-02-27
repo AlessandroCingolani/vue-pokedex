@@ -1,4 +1,5 @@
 <script>
+import MyPokemonVue from "./partials/MyPokemon.vue";
 import PokemonDetailsVue from "./partials/PokemonDetails.vue";
 import PokemonSearchVue from "./partials/PokemonSearch.vue";
 
@@ -7,6 +8,7 @@ export default {
   components: {
     PokemonDetailsVue,
     PokemonSearchVue,
+    MyPokemonVue,
   },
 };
 </script>
@@ -20,7 +22,9 @@ export default {
           <PokemonDetailsVue />
         </div>
       </div>
-      <div class="col-6">My pokemon</div>
+      <div class="col-6 d-flex justify-content-center align-items-center">
+        <MyPokemonVue />
+      </div>
     </div>
   </div>
 </template>

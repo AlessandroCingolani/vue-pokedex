@@ -1,9 +1,9 @@
 import { reactive } from 'vue';
 
 export const store = reactive({
-  apiUrl:"https://pokeapi.co/api/v2/pokemon/charizard",
+  apiUrl:"https://pokeapi.co/api/v2/pokemon/",
    isLoad:false,
-   notFound:false,
+   found:false,
    searchedPokemon:[],
    myPokemon:[]
   

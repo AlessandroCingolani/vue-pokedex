@@ -18,23 +18,31 @@ export default {
     };
   },
   methods: {
-    getPokemon() {
+    getPokemon(params) {
+      console.log(params);
+      store.isLoad = false;
+      store.found = false;
       store.searchedPokemon = [];
       axios
-        .get(store.apiUrl)
+        .get(store.apiUrl + params)
         .then((response) => {
-          store.notFound = false;
           console.log(response);
           store.searchedPokemon = response.data;
+          store.found = true;
+          store.isLoad = true;
         })
         .catch((error) => {
-          store.notFound = true;
+          store.searchedPokemon = [];
+          store.found = false;
+          store.isLoad = true;
           console.log(error + "no trovato");
         });
     },
   },
   mounted() {
-    this.getPokemon();
+    store.isLoad = true;
+    store.searchedPokemon = [];
+    store.found = false;
   },
 };
 </script>
@@ -44,11 +52,8 @@ export default {
     <div class="row">
       <div class="col-6">
         <div class="ac_container w-100 h-100 px-5">
-          <PokemonSearchVue />
-          <PokemonDetailsVue
-            :details="store.searchedPokemon"
-            :found="store.notFound"
-          />
+          <PokemonSearchVue @callApi="getPokemon" />
+          <PokemonDetailsVue :notFound="store.found" />
         </div>
       </div>
       <div class="col-6 d-flex justify-content-center align-items-center">

@@ -6,7 +6,7 @@ export default {
 
 <template>
   <header>
-    <div class="logo py-3">
+    <div class="logo">
       <img src="/img/pokedex-logo.png" alt="" />
     </div>
   </header>
@@ -15,12 +15,12 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 header {
+  height: 80px;
   border-bottom: 3px solid black;
   .logo {
     text-align: center;
     img {
       width: 200px;
-      height: 70px;
     }
   }
 }

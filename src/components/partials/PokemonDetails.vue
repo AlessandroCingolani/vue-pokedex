@@ -47,18 +47,26 @@ export default {
         <div class="main-details">
           <div>
             <strong>Name:</strong
-            ><span class="text-uppercase">
+            ><span class="text-capitalize">
               {{ store.searchedPokemon.name }}</span
             >
           </div>
-          <div><strong>Type:</strong><span></span></div>
+          <div>
+            <strong>Type:</strong
+            ><span
+              class="pe-2"
+              v-for="value in store.searchedPokemon.types"
+              :key="value.id"
+              >{{ value.type.name }}</span
+            >
+          </div>
           <div>
             <strong>Height:</strong
             ><span> {{ store.searchedPokemon.height }}"</span>
           </div>
           <div>
             <strong>Weight:</strong
-            ><span> {{ store.searchedPokemon.weight }} lbs.</span>
+            ><span> {{ store.searchedPokemon.weight }} lbs</span>
           </div>
         </div>
         <div class="stats pt-2">
@@ -104,6 +112,11 @@ export default {
         width: 60%;
         height: 60%;
       }
+    }
+  }
+  .main-details {
+    strong {
+      padding-right: 8px;
     }
   }
   .details-pokemon {

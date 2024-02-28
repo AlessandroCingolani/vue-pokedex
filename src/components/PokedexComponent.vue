@@ -56,9 +56,11 @@ export default {
           this.catch = false;
         }
       }
+      localStorage.setItem("myPokemons", JSON.stringify(store.myPokemon));
     },
   },
   mounted() {
+    store.myPokemon = JSON.parse(localStorage.getItem("myPokemons"));
     store.isLoad = true;
     store.searchedPokemon = [];
     store.found = false;

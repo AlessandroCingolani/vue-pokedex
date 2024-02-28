@@ -10,7 +10,7 @@ export default {
 <template>
   <div class="my-list ps-2 pt-4">
     <h5>My pokémons</h5>
-    <ul>
+    <ul v-if="myList.length > 0">
       <li
         @click="$emit('searchMyPokemon', pokemon)"
         v-for="(pokemon, index) in myList"
@@ -19,6 +19,7 @@ export default {
         {{ pokemon }}
       </li>
     </ul>
+    <h6 v-else>No pokémon in your team</h6>
   </div>
 </template>
 

@@ -11,7 +11,11 @@ export default {
   <div class="my-list ps-2 pt-4">
     <h5>My pokémons</h5>
     <ul>
-      <li v-for="(pokemon, index) in myList" :key="index">
+      <li
+        @click="$emit('searchMyPokemon', pokemon)"
+        v-for="(pokemon, index) in myList"
+        :key="index"
+      >
         {{ pokemon }}
       </li>
     </ul>

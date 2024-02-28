@@ -80,7 +80,7 @@ export default {
         </div>
       </div>
       <div class="col-6 d-flex justify-content-center align-items-center">
-        <MyPokemonVue :myList="store.myPokemon" />
+        <MyPokemonVue @searchMyPokemon="getPokemon" :myList="store.myPokemon" />
       </div>
     </div>
   </div>

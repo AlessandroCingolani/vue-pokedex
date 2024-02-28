@@ -19,24 +19,35 @@ export default {
   },
   methods: {
     getPokemon(params) {
-      console.log(params);
-      store.isLoad = false;
-      store.found = false;
-      store.searchedPokemon = [];
-      axios
-        .get(store.apiUrl + params)
-        .then((response) => {
-          console.log(response);
-          store.searchedPokemon = response.data;
-          store.found = true;
-          store.isLoad = true;
-        })
-        .catch((error) => {
-          store.searchedPokemon = [];
-          store.found = false;
-          store.isLoad = true;
-          console.log(error + "no trovato");
-        });
+      if (params.length > 0) {
+        store.isLoad = false;
+        store.found = false;
+        store.searchedPokemon = [];
+        axios
+          .get(store.apiUrl + params)
+          .then((response) => {
+            console.log(response);
+            store.searchedPokemon = response.data;
+            store.found = true;
+            store.isLoad = true;
+            if (store.myPokemon.includes(store.searchedPokemon.name)) {
+              console.log("catturato");
+            }
+          })
+          .catch((error) => {
+            store.searchedPokemon = [];
+            store.found = false;
+            store.isLoad = true;
+            console.log(error + "no trovato");
+          });
+      }
+    },
+    catchPokemon() {
+      if (store.found) {
+        if (!store.myPokemon.includes(store.searchedPokemon.name)) {
+          store.myPokemon.push(store.searchedPokemon.name);
+        }
+      }
     },
   },
   mounted() {
@@ -52,12 +63,12 @@ export default {
     <div class="row">
       <div class="col-6">
         <div class="ac_container w-100 h-100 px-5">
-          <PokemonSearchVue @callApi="getPokemon" />
+          <PokemonSearchVue @catch="catchPokemon" @callApi="getPokemon" />
           <PokemonDetailsVue :notFound="store.found" />
         </div>
       </div>
       <div class="col-6 d-flex justify-content-center align-items-center">
-        <MyPokemonVue />
+        <MyPokemonVue :myList="store.myPokemon" />
       </div>
     </div>
   </div>

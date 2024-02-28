@@ -1,6 +1,9 @@
 <script>
 export default {
   name: "MyPokemon",
+  props: {
+    myList: Array,
+  },
 };
 </script>
 
@@ -8,7 +11,9 @@ export default {
   <div class="my-list ps-2 pt-4">
     <h5>My pokémons</h5>
     <ul>
-      <li>adsa</li>
+      <li v-for="(pokemon, index) in myList" :key="index">
+        {{ pokemon }}
+      </li>
     </ul>
   </div>
 </template>
@@ -24,7 +29,7 @@ export default {
     margin: 0;
     padding: 0;
     li {
-      display: inline-block;
+      width: fit-content;
       &:hover {
         cursor: pointer;
         color: gray;

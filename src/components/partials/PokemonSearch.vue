@@ -6,6 +6,9 @@ export default {
       toSearch: "",
     };
   },
+  props: {
+    catched: Boolean,
+  },
 };
 </script>
 
@@ -23,7 +26,9 @@ export default {
         <i class="fa-solid fa-magnifying-glass"></i>
       </button>
     </div>
-    <button @click="$emit('catch')" class="ac_btn">Catch</button>
+    <button @click="$emit('catch')" class="ac_btn">
+      {{ catched ? "remove" : "catch" }}
+    </button>
   </div>
 </template>
 

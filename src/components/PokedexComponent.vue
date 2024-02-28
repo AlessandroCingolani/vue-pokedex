@@ -15,11 +15,13 @@ export default {
   data() {
     return {
       store,
+      catch: false,
     };
   },
   methods: {
     getPokemon(params) {
       if (params.length > 0) {
+        this.catch = false;
         store.isLoad = false;
         store.found = false;
         store.searchedPokemon = [];
@@ -31,7 +33,8 @@ export default {
             store.found = true;
             store.isLoad = true;
             if (store.myPokemon.includes(store.searchedPokemon.name)) {
-              console.log("catturato");
+              this.catch = true;
+              console.log(this.catch);
             }
           })
           .catch((error) => {
@@ -42,10 +45,15 @@ export default {
           });
       }
     },
-    catchPokemon() {
+    catchRemove() {
       if (store.found) {
         if (!store.myPokemon.includes(store.searchedPokemon.name)) {
           store.myPokemon.push(store.searchedPokemon.name);
+          this.catch = true;
+        } else {
+          let indice = store.myPokemon.indexOf(store.searchedPokemon.name);
+          store.myPokemon.splice(indice, 1);
+          this.catch = false;
         }
       }
     },
@@ -63,7 +71,11 @@ export default {
     <div class="row">
       <div class="col-6">
         <div class="ac_container w-100 h-100 px-5">
-          <PokemonSearchVue @catch="catchPokemon" @callApi="getPokemon" />
+          <PokemonSearchVue
+            :catched="this.catch"
+            @catch="catchRemove"
+            @callApi="getPokemon"
+          />
           <PokemonDetailsVue :notFound="store.found" />
         </div>
       </div>

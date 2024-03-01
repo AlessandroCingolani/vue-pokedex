@@ -12,6 +12,7 @@ export default {
     <h5>My pokémons</h5>
     <ul v-if="myList.length > 0">
       <li
+        class="text-capitalize"
         @click="$emit('searchMyPokemon', pokemon)"
         v-for="(pokemon, index) in myList"
         :key="index"

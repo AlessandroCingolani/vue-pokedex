@@ -71,17 +71,17 @@ export default {
 <template>
   <div class="container mt-3">
     <div class="row">
-      <div class="col-6">
-        <div class="ac_container w-100 h-100 px-5">
-          <PokemonSearchVue
-            :catched="this.catch"
-            @catch="catchRemove"
-            @callApi="getPokemon"
-          />
-          <PokemonDetailsVue :notFound="store.found" />
-        </div>
+      <div class="col-6 px-5">
+        <PokemonSearchVue
+          :catched="this.catch"
+          @catch="catchRemove"
+          @callApi="getPokemon"
+        />
+        <PokemonDetailsVue />
       </div>
-      <div class="col-6 d-flex justify-content-center align-items-center">
+      <div
+        class="right-side col-6 d-flex justify-content-center align-items-center"
+      >
         <MyPokemonVue @searchMyPokemon="getPokemon" :myList="store.myPokemon" />
       </div>
     </div>
@@ -91,10 +91,15 @@ export default {
 <style lang="scss" scoped>
 .container {
   height: calc(100vh - 120px);
-  border: 5px solid red;
+  border: 20px solid rgb(165, 18, 23);
+  border-radius: 20px;
   .row {
     height: 100%;
-    background-color: rgb(169, 0, 15);
+    background-color: rgb(200, 43, 46);
+    border: 4px solid black;
+    .right-side {
+      border-left: 10px solid rgb(139, 17, 21);
+    }
   }
 }
 </style>

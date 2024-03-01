@@ -9,12 +9,24 @@ export default {
   data() {
     return {
       store,
+      front: true,
     };
   },
+  methods: {
+    startInterval() {
+      setInterval(() => {
+        this.front = !this.front;
+      }, 1500);
+    },
+  },
+
   computed: {
     pokemonList() {
       return store.searchedPokemon;
     },
+  },
+  mounted() {
+    this.startInterval();
   },
 };
 </script>
@@ -33,16 +45,34 @@ export default {
         </div>
         <div v-else class="loaded d-flex justify-content-center">
           <img v-if="!store.found" src="/img/pokeball.png" alt="" />
-          <img v-else :src="store.searchedPokemon.sprites.front_shiny" alt="" />
+          <div class="w-100 h-100 d-flex justify-content-center" v-else>
+            <img
+              v-if="this.front"
+              :src="store.searchedPokemon.sprites.front_default"
+              alt=""
+            />
+            <img
+              v-else
+              :src="store.searchedPokemon.sprites.back_default"
+              alt=""
+            />
+          </div>
         </div>
       </div>
     </div>
 
     <div class="details-pokemon p-2">
-      <strong v-if="!store.found">No valid pokemon selected!</strong>
+      <strong>{{
+        !store.isLoad
+          ? "Loading..."
+          : !store.found && store.isLoad
+          ? "No valid pokemon selected!"
+          : ""
+      }}</strong>
+
       <div
-        v-else
-        class="found-pokemon h-100 d-flex flex-column justify-content-evenly"
+        v-if="store.found"
+        class="found-pokemon h-100 d-flex flex-column justify-content-around"
       >
         <div class="main-details">
           <div>
@@ -124,7 +154,7 @@ export default {
     height: 60%;
     border: 2px solid black;
     border-radius: 10px;
-    background-color: rgb(44, 212, 13);
+    background-color: rgb(90, 177, 106);
     .stats {
       .bar {
         width: 255px;
